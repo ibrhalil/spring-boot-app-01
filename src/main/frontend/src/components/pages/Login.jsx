@@ -1,20 +1,9 @@
 import React from "react";
 
-const Login = ({ inputs, signUp, inUpClick, submitForm }) => {
-  const SignupLink = ({ inUpClick }) => (
-    <div className="signup-link">
-      <p className="in-out">
-        Don't have an account?{" "}
-        <a href="#" onClick={inUpClick}>
-          Sign Up Here
-        </a>
-      </p>
-    </div>
-  );
-
-  const Input = ({ label, type, show, validated, id }) => (
+const Login = ({ selectTab, inputs, inputFunc, signupLink, submitBtn }) => {
+  const Input = ({ label, type, show, validated, id, value }) => (
     <div className={show ? "field field-in" : "field"}>
-      <label className="label">
+      <label className="label" htmlFor={id}>
         {label}
         <i
           className={validated ? "fa fa-check animate-check" : ""}
@@ -22,21 +11,11 @@ const Login = ({ inputs, signUp, inUpClick, submitForm }) => {
         ></i>
       </label>
       <br />
-      <input className="input" type={type} />
+      <input className="input" type={type} id={id} value={value} />
     </div>
   );
 
-  const Submit = () => (
-    <div>
-      <hr />
-      <button className="submit-button" type="submit">
-        {" "}
-        Submit
-      </button>
-    </div>
-  );
-
-  const Form = ({ inputs, submitForm }) => {
+  const Form = ({ inputs }) => {
     const inputsMapped = inputs.map((i) => (
       <Input
         label={i.label}
@@ -49,19 +28,19 @@ const Login = ({ inputs, signUp, inUpClick, submitForm }) => {
     ));
 
     return (
-      <form onSubmit={submitForm}>
+      <form>
         {inputsMapped}
-        <Submit />
+        {submitBtn()}
       </form>
     );
   };
 
   return (
-    <div className={signUp ? "login login-closed" : "login"}>
+    <div className={selectTab ? "login login-closed" : "login"}>
       <h1>Log In</h1>
       <hr />
-      <Form inputs={inputs} submitForm={submitForm} />
-      <SignupLink inUpClick={inUpClick} />
+      <Form inputs={inputs} />
+      {signupLink()}
     </div>
   );
 };

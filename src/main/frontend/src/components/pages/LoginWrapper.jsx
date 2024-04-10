@@ -1,33 +1,18 @@
 import React, { useState } from "react";
 import SignUp from "./SignUp";
 import Login from "./Login";
-import "./SignUpStyle.css";
+import "./LoginWrapperStyle.css";
 
 const LoginWrapper = () => {
-  const loginInputsF = [
-    {
-      label: "User Name",
-      type: "text",
-      show: true,
-      validated: "",
-      id: "a",
-    },
-    {
-      label: "Password",
-      type: "password",
-      show: true,
-      validated: "",
-      id: "b",
-    },
-  ];
-
-  const signupInputsF = [
+  const [selectTab, setSelectTab] = useState(false);
+  const [signupInputs, setSignupInputs] = useState([
     {
       label: "User Name",
       type: "text",
       show: false,
       validated: "",
       id: "c",
+      value: "",
     },
     {
       label: "Email",
@@ -35,6 +20,7 @@ const LoginWrapper = () => {
       show: false,
       validated: "",
       id: "d",
+      value: "",
     },
     {
       label: "Password",
@@ -42,6 +28,7 @@ const LoginWrapper = () => {
       show: false,
       validated: "",
       id: "e",
+      value: "",
     },
     {
       label: "Re-Enter Password",
@@ -49,44 +36,76 @@ const LoginWrapper = () => {
       show: false,
       validated: "",
       id: "f",
+      value: "",
     },
-  ];
+  ]);
 
-  const [signUp, setSignUp] = useState(false);
-  const [signupInputs, setSignupInputs] = useState(signupInputsF);
-  const [loginInputs, setLoginInputs] = useState(loginInputsF);
+  const [loginInputs, setLoginInputs] = useState([
+    {
+      label: "User Name",
+      type: "text",
+      show: true,
+      validated: "",
+      id: "a",
+      value: "",
+    },
+    {
+      label: "Password",
+      type: "password",
+      show: true,
+      validated: "",
+      id: "b",
+      value: "",
+    },
+  ]);
 
   const inUpClick = () => {
-    setSignUp(!signUp);
+    setSelectTab(!selectTab);
   };
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    console.log("signUp",signUp);
-    console.log("signupInputs",signupInputs);
-    console.log("signupInputs",signupInputs);
-    for (let index = 0; index < e.target.length; index++) {
-        const element = e.target[index];
-        console.log(index+"label",element);
-        console.log(index+"value",element.value);
-    }
-    console.log("e",e.target);
-  };
+  const SignupLink = () => (
+    <div className="signup-link">
+      <p className="in-out">
+        Don't have an account?{" "}
+        <a href="#" onClick={inUpClick}>
+          Sign Up Here
+        </a>
+      </p>
+    </div>
+  );
+
+  const SubmitBtn = (e) => (
+    <>
+      <hr />
+      <button
+        className="submit-button"
+        type="submit"
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("e", e);
+        }}
+      >
+        Submit
+      </button>
+    </>
+  );
 
   return (
     <>
       <Login
-        signUp={signUp}
+        selectTab={selectTab}
         inputs={loginInputs}
-        inUpClick={inUpClick}
-        submitForm={submitForm}
+        inputFunc={setLoginInputs}
+        signupLink={SignupLink}
+        submitBtn={SubmitBtn}
       />
-      <SignUp
-        signUp={signUp}
+      {/*      <SignUp
+        selectTab={selectTab}
         inputs={signupInputs}
-        inUpClick={inUpClick}
-        submitForm={submitForm}
-      />
+        inputFunc={setSignupInputs}
+        signupLink={SignupLink}
+        submitBtn={SubmitBtn}
+      /> */}
     </>
   );
 };
