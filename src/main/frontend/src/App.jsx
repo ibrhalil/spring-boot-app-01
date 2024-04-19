@@ -1,12 +1,13 @@
-import { useState } from "react";
-import "./App.css";
-import SignUp from "./components/pages/SignUp";
-import LoginWrapper from "./components/pages/LoginWrapper";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LoginWrapper from "./components/pages/login/LoginWrapper";
 
 function App() {
   return (
     <>
-      <LoginWrapper />
+      <LoginWrapper typeIndex={0} />
+      <LoginWrapper typeIndex={1} />
+      <LoginWrapper typeIndex={2} />
     </>
   );
 }
