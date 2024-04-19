@@ -1,7 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 const Login = ({ changeFormType }) => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const onSubmit = () => {
+    axios.post("http://google.com/test", {
+      username: username,
+      password: password,
+    });
+  };
+
   return (
     <Form>
       <h2
@@ -19,6 +30,9 @@ const Login = ({ changeFormType }) => {
           type="text"
           placeholder="Username"
           className="input-field"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
         />
       </Form.Group>
 
@@ -28,10 +42,13 @@ const Login = ({ changeFormType }) => {
           type="password"
           placeholder="Password"
           className="input-field"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
       </Form.Group>
       <div className="button-container">
-        <Button className="login-button" type="submit">
+        <Button className="login-button" type="submit" onClick={onSubmit}>
           Login
         </Button>
       </div>
