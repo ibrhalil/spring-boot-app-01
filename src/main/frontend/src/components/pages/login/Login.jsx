@@ -6,15 +6,18 @@ const Login = ({ changeFormType }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const onSubmit = () => {
-    axios.post("http://google.com/test", {
-      username: username,
-      password: password,
-    });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      username,
+      password,
+    };
+
+    axios.post("http://google.com/test", payload);
   };
 
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <h2
         style={{
           textAlign: "center",
@@ -48,7 +51,7 @@ const Login = ({ changeFormType }) => {
         />
       </Form.Group>
       <div className="button-container">
-        <Button className="login-button" type="submit" onClick={onSubmit}>
+        <Button className="login-button" type="submit">
           Login
         </Button>
       </div>
