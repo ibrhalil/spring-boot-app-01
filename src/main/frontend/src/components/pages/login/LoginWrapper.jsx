@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Forgot from "./Forgot";
-import "./style.css";
 
 const LoginWrapper = ({ typeIndex = 0 }) => {
   const type = ["login", "signup", "forgot"];
@@ -14,22 +14,15 @@ const LoginWrapper = ({ typeIndex = 0 }) => {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-      }}
-    >
-      <div className="login-container">
-        <div className="login-form">
+    <Container fluid>
+      <Row className="justify-content-center">
+        <Col xs={12} md={6} lg={4}>
           {selectTab === "login" && <Login changeFormType={changeFormType} />}
           {selectTab === "signup" && <SignUp changeFormType={changeFormType} />}
           {selectTab === "forgot" && <Forgot changeFormType={changeFormType} />}
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

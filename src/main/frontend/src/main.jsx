@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import App from "./App.jsx";
+import "./style.scss"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
