@@ -5,6 +5,8 @@ import com.ibrhalil.springbootapp01.user.entity.User;
 import com.ibrhalil.springbootapp01.user.repository.UserRepository;
 import com.ibrhalil.springbootapp01.user.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,11 +19,17 @@ public class UserServiceImpl implements UserService {
     public String userSave(UserDto userDto) {
 
         if(userValid(userDto)){
-            User newUser = dto2Model(userDto);
-            newUser = userRepository.save(newUser);
-            return newUser.getId();
+            User user = dto2Model(userDto);
+            user.setPassword(passEncode(user.getPassword()));
+            user = userRepository.save(user);
+            return user.getId();
         }
         return null;
+    }
+
+    @Override
+    public String login(UserDto userDto) {
+        return "";
     }
 
     private User dto2Model(UserDto userDto) {
@@ -37,5 +45,10 @@ public class UserServiceImpl implements UserService {
 
     private boolean userValid(UserDto userDto) {
         return true;
+    }
+
+    private String passEncode(String password) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 }

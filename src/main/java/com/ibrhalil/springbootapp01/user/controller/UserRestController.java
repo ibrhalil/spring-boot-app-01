@@ -12,15 +12,14 @@ public class UserRestController {
 
     private UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("/signup")
     public String login(@RequestBody UserDto userDto) {
-        return userService.userSave(userDto);
+        return userService.login(userDto);
     }
 
     @PostMapping("/sign-up")
     public String signUp(@RequestBody UserDto userDto) {
-        System.out.println(userDto);
-        return userDto.toString();
+        return userService.userSave(userDto);
     }
 
     @PostMapping("/forgot")
