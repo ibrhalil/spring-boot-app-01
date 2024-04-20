@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Button, Form } from "react-bootstrap";
 
 const Login = ({ changeFormType }) => {
@@ -13,7 +14,15 @@ const Login = ({ changeFormType }) => {
       password,
     };
 
-    axios.post("http://google.com/test", payload);
+    axios
+      .post("/api/v1/user/login", payload)
+      .then(() => {
+        toast.success("successful");
+      })
+      .catch((e) => {
+        toast.error("Danger");
+        console.error(e);
+      });
   };
 
   return (
@@ -33,6 +42,7 @@ const Login = ({ changeFormType }) => {
           type="text"
           placeholder="Username"
           className="input-field"
+          required
           onChange={(e) => {
             setUsername(e.target.value);
           }}
@@ -45,6 +55,7 @@ const Login = ({ changeFormType }) => {
           type="password"
           placeholder="Password"
           className="input-field"
+          required
           onChange={(e) => {
             setPassword(e.target.value);
           }}
